@@ -9,7 +9,7 @@ import {
 } from "@/services";
 import { AuthContext } from "@/context/auth-context";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 export function InfiniteMovingCardsDemo() {
   return (
