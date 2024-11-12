@@ -9,12 +9,15 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInFormControls, signUpFormControls } from "@/config";
 import { AuthContext } from "@/context/auth-context";
-import { GraduationCap } from "lucide-react";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import './app.css';
+
+import { useContext, useState, useEffect, useRef } from "react";
+
+import "./app.css";
+import gsap from "gsap";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 function AuthPage() {
+  const mainRef = useRef(null);
   const [activeTab, setActiveTab] = useState("signin");
   const {
     signInFormData,
@@ -24,6 +27,20 @@ function AuthPage() {
     handleRegisterUser,
     handleLoginUser,
   } = useContext(AuthContext);
+
+  useEffect(() => {
+    // Fade in animation when component mounts
+    gsap.fromTo(
+      mainRef.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+      }
+    );
+  }, []);
 
   function handleTabChange(value) {
     setActiveTab(value);
@@ -49,68 +66,94 @@ function AuthPage() {
   console.log(signInFormData);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center border-b">
-        <Link to={"/"} className="flex items-center justify-center">
-          <GraduationCap className="h-8 w-8 mr-4" />
-          <span className="font-extrabold text-xl">LMS LEARN</span>
-        </Link>
-      </header>
-      <div className="h-[50rem] w-full dark:bg-black bg-white dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
-        {/* Radial gradient for the container to give a faded look */}
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-        <Tabs
-          value={activeTab}
-          defaultValue="signin"
-          onValueChange={handleTabChange}
-          className="w-full max-w-md relative z-10"
-        >
-          <TabsList className="grid w-full grid-cols-2 bg-[rgba(225,255,255,0.5)]">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          </TabsList>
-          <TabsContent value="signin">
-            <Card className="p-6 space-y-4">
-              <CardHeader>
-                <CardTitle>Sign in to your account</CardTitle>
-                <CardDescription>
-                  Enter your email and password to access your account
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <CommonForm
-                  formControls={signInFormControls}
-                  buttonText={"Sign In"}
-                  formData={signInFormData}
-                  setFormData={setSignInFormData}
-                  isButtonDisabled={!checkIfSignInFormIsValid()}
-                  handleSubmit={handleLoginUser}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="signup">
-            <Card className="p-6 space-y-4">
-              <CardHeader>
-                <CardTitle>Create a new account</CardTitle>
-                <CardDescription>
-                  Enter your details to get started
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <CommonForm
-                  formControls={signUpFormControls}
-                  buttonText={"Sign Up"}
-                  formData={signUpFormData}
-                  setFormData={setSignUpFormData}
-                  isButtonDisabled={!checkIfSignUpFormIsValid()}
-                  handleSubmit={handleRegisterUser}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+    <div className="min-h-screen bg-black">
+      <div className="fixed inset-0 w-full h-full">
+        <SparklesCore
+          id="tsparticles"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#FFFFFF"
+        />
       </div>
+
+      <main
+        ref={mainRef}
+        className="relative container mx-auto px-4 flex items-center justify-center opacity-0"
+        style={{ minHeight: "calc(100vh - 4rem)" }}
+      >
+        <div className="w-full max-w-md">
+          <Tabs
+            value={activeTab}
+            defaultValue="signin"
+            onValueChange={handleTabChange}
+            className="relative backdrop-blur-md rounded-2xl shadow-2xl border border-zinc-800/50"
+          >
+            <TabsList className="w-full p-1.5 bg-zinc-900/50 backdrop-blur-sm rounded-t-xl grid grid-cols-2 gap-2">
+              <TabsTrigger
+                value="signin"
+                className="data-[state=active]:bg-white data-[state=active]:text-black rounded-xl transition-all duration-300 text-zinc-400 hover:text-zinc-200 py-2.5"
+              >
+                Sign In
+              </TabsTrigger>
+              <TabsTrigger
+                value="signup"
+                className="data-[state=active]:bg-white data-[state=active]:text-black rounded-xl transition-all duration-300 text-zinc-400 hover:text-zinc-200 py-2.5"
+              >
+                Sign Up
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="signin">
+              <Card className="border-0 shadow-none bg-zinc-900/20 backdrop-blur-sm">
+                <CardHeader className="space-y-1 px-6 pt-6">
+                  <CardTitle className="text-3xl font-bold text-white">
+                    Welcome back
+                  </CardTitle>
+                  <CardDescription className="text-zinc-400 text-base">
+                    Enter your credentials to access your account
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="px-6 pb-6">
+                  <CommonForm
+                    formControls={signInFormControls}
+                    buttonText={"Sign In"}
+                    formData={signInFormData}
+                    setFormData={setSignInFormData}
+                    isButtonDisabled={!checkIfSignInFormIsValid()}
+                    handleSubmit={handleLoginUser}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="signup">
+              <Card className="border-0 shadow-none bg-zinc-900/20 backdrop-blur-sm">
+                <CardHeader className="space-y-1 px-6 pt-6">
+                  <CardTitle className="text-3xl font-bold text-white">
+                    Create account
+                  </CardTitle>
+                  <CardDescription className="text-zinc-400 text-base">
+                    Join us today and start your learning journey
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="px-6 pb-6">
+                  <CommonForm
+                    formControls={signUpFormControls}
+                    buttonText={"Sign Up"}
+                    formData={signUpFormData}
+                    setFormData={setSignUpFormData}
+                    isButtonDisabled={!checkIfSignUpFormIsValid()}
+                    handleSubmit={handleRegisterUser}
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </main>
     </div>
   );
 }
