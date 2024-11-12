@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -126,17 +126,17 @@ function StudentViewCoursesPage() {
   console.log(loadingState, "loadingState");
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">All Courses</h1>
-      <div className="flex flex-col md:flex-row gap-4">
-        <aside className="w-full md:w-64 space-y-4">
+    <div className="p-4 text-white bg-gradient-to-r from-violet-950 to-black">
+      <h1 className="p-4 mb-4 ml-10 text-3xl font-bold">All Courses</h1>
+      <div className="flex flex-col gap-4 md:flex-row ">
+        <aside className="w-full p-5 ml-10 space-y-4 md:w-64 bg-gradient-to-r from-violet-950 to-black">
           <div>
             {Object.keys(filterOptions).map((ketItem) => (
               <div className="p-4 border-b">
-                <h3 className="font-bold mb-3">{ketItem.toUpperCase()}</h3>
+                <h3 className="mb-3 font-bold">{ketItem.toUpperCase()}</h3>
                 <div className="grid gap-2 mt-2">
                   {filterOptions[ketItem].map((option) => (
-                    <Label className="flex font-medium items-center gap-3">
+                    <Label className="flex items-center gap-3 font-medium">
                       <Checkbox
                         checked={
                           filters &&
@@ -156,8 +156,8 @@ function StudentViewCoursesPage() {
             ))}
           </div>
         </aside>
-        <main className="flex-1">
-          <div className="flex justify-end items-center mb-4 gap-5">
+        <main className="flex-1 ">
+          <div className="flex items-center justify-end gap-5 mb-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -165,7 +165,7 @@ function StudentViewCoursesPage() {
                   size="sm"
                   className="flex items-center gap-2 p-5"
                 >
-                  <ArrowUpDownIcon className="h-4 w-4" />
+                  <ArrowUpDownIcon className="w-4 h-4" />
                   <span className="text-[16px] font-medium">Sort By</span>
                 </Button>
               </DropdownMenuTrigger>
@@ -185,7 +185,7 @@ function StudentViewCoursesPage() {
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-            <span className="text-sm text-black font-bold">
+            <span className="text-sm font-bold text-white ">
               {studentViewCoursesList.length} Results
             </span>
           </div>
@@ -198,17 +198,17 @@ function StudentViewCoursesPage() {
                   key={courseItem?._id}
                 >
                   <CardContent className="flex gap-4 p-4">
-                    <div className="w-48 h-32 flex-shrink-0">
+                    <div className="flex-shrink-0 w-48 h-32">
                       <img
                         src={courseItem?.image}
-                        className="w-ful h-full object-cover"
+                        className="object-cover h-full w-ful"
                       />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl mb-2">
+                      <CardTitle className="mb-2 text-xl">
                         {courseItem?.title}
                       </CardTitle>
-                      <p className="text-sm text-gray-600 mb-1">
+                      <p className="mb-1 text-sm text-gray-600">
                         Created By{" "}
                         <span className="font-bold">
                           {courseItem?.instructorName}
@@ -221,7 +221,7 @@ function StudentViewCoursesPage() {
                             : "Lectures"
                         } - ${courseItem?.level.toUpperCase()} Level`}
                       </p>
-                      <p className="font-bold text-lg">
+                      <p className="text-lg font-bold">
                         ${courseItem?.pricing}
                       </p>
                     </div>
@@ -231,7 +231,7 @@ function StudentViewCoursesPage() {
             ) : loadingState ? (
               <Skeleton />
             ) : (
-              <h1 className="font-extrabold text-4xl">No Courses Found</h1>
+              <h1 className="text-4xl font-extrabold">No Courses Found</h1>
             )}
           </div>
         </main>

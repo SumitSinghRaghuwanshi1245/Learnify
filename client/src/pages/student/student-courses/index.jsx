@@ -25,20 +25,20 @@ function StudentCoursesPage() {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold mb-8">My Courses</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    <div className="p-4 bg-gradient-to-r from-violet-950 to-black">
+      <h1 className="mb-8 text-3xl font-bold bg-gradient-to-r from-violet-950 to-black">My Courses</h1>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:grid-cols-4">
         {studentBoughtCoursesList && studentBoughtCoursesList.length > 0 ? (
           studentBoughtCoursesList.map((course) => (
             <Card key={course.id} className="flex flex-col">
-              <CardContent className="p-4 flex-grow">
+              <CardContent className="flex-grow p-4">
                 <img
                   src={course?.courseImage}
                   alt={course?.title}
-                  className="h-52 w-full object-cover rounded-md mb-4"
+                  className="object-cover w-full mb-4 rounded-md h-52"
                 />
-                <h3 className="font-bold mb-1">{course?.title}</h3>
-                <p className="text-sm text-gray-700 mb-2">
+                <h3 className="mb-1 font-bold">{course?.title}</h3>
+                <p className="mb-2 text-sm text-gray-700">
                   {course?.instructorName}
                 </p>
               </CardContent>
@@ -49,14 +49,14 @@ function StudentCoursesPage() {
                   }
                   className="flex-1"
                 >
-                  <Watch className="mr-2 h-4 w-4" />
+                  <Watch className="w-4 h-4 mr-2 bg-gradient-to-r from-violet-950 to-black" />
                   Start Watching
                 </Button>
               </CardFooter>
             </Card>
           ))
         ) : (
-          <h1 className="text-3xl font-bold">No Courses found</h1>
+          <h1 className="text-3xl font-bold ">No Courses found</h1>
         )}
       </div>
     </div>

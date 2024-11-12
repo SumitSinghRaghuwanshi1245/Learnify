@@ -14,44 +14,44 @@ function StudentViewCommonHeader() {
   }
 
   return (
-    <header className="relative flex items-center justify-between p-4 text-white bg-gray-700 border-b">
+    <header className="sticky top-0 z-50 flex items-center justify-between p-4 text-white border-b bg-gradient-to-r from-violet-950 to-black">
       <div className="flex items-center space-x-4">
         <Link to="/home" className="flex items-center hover:text-white">
-          <GraduationCap className="w-8 h-8 mr-4 " />
+          {/* <GraduationCap className="w-8 h-8 mr-4" /> */}
           <span className="font-extrabold md:text-xl text-[14px]">
-           <img src="../logo.png" alt="." className="w-10 h-10 rounded-full" />
+            <img src="../logo.png" alt="." className="w-12 h-12 rounded-full" />
           </span>
         </Link>
         <div className="flex items-center space-x-1">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              location.pathname.includes("/courses")
-                ? null
-                : navigate("/courses");
-            }}
-            className="text-[14px] md:text-[16px] font-medium"
-          >
-            Explore Courses
-          </Button>
         </div>
       </div>
       <div className="flex items-center space-x-4">
         <div className="flex items-center gap-4">
           <div
-            onClick={() => navigate("/student-courses")}
+            onClick={() => navigate('/student-courses')}
             className="flex items-center gap-3 cursor-pointer"
           >
-            <span className="font-extrabold md:text-xl text-[14px]">
-              My Courses
+            <span className="text-[14px] md:text-[16px] font-medium text-violet-400">
+              <button >My Courses </button>
             </span>
-            <TvMinimalPlay className="w-8 h-8 cursor-pointer" />
+            {/* <TvMinimalPlay className="w-8 h-8 cursor-pointer" /> */}
           </div>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              location.pathname.includes('/courses')
+                ? null
+                : navigate('/courses');
+            }}
+            className="text-[14px] md:text-[16px] font-medium"
+          >
+            Explore Courses
+          </Button>
           <Button onClick={handleLogout}>Sign Out</Button>
         </div>
       </div>
     </header>
   );
-}
+};
 
 export default StudentViewCommonHeader;

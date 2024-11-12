@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@radix-ui/react-label": "^2.1.0",
+    "@tabler/icons-react": "^3.21.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.12",
+    "tailwind-merge": "^2.5.4"
+  }
+}
